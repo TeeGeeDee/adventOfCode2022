@@ -11,6 +11,6 @@ function day01(file)
             thiscal += parse(Int,l);
         end
     end
-    push!(h,thiscal); # last line
+    push!(h,thiscal); # last elf
     return first(h),sum(pop!(h) for _ in 1:3)
 end
