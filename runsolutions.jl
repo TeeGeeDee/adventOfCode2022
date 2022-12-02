@@ -5,5 +5,6 @@ open(day01,"Day01/data.txt");
 
 println("Day 1:");
 @time out = open(day01,"Day01/data.txt");
-# 0.000418 seconds (4.65 k allocations: 108.969 KiB)
+# 0.000383 seconds (4.64 k allocations: 108.391 KiB)
 println("Solutions = $out.");
+# Solutions = (69310, 206104).
