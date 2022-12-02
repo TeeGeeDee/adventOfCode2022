@@ -1,26 +1,13 @@
-using DataStructures
-
 K = 3
 
 function day01(file)
-    topk = BinaryMinMaxHeap{Int}(zeros(Int,K));
+    topk = zeros(Int,K);
+    latestelf = Iterators.takewhile(!isempty,eachline(file));
     while !eof(file)
-        cal = getnextelfcalories(file);
-        if cal>minimum(topk)
-            popmin!(topk);
-            push!(topk,cal);
-        end
+        calories = sum(x->parse(Int,x),latestelf);
+        i = findfirst(>(calories),topk);
+        if isnothing(i) i = K; end # bigger than all
+        if i>1 topk = [topk[2:i]; calories; topk[i+1:K]]; end
     end
-    return maximum(topk),sum(popall!(topk))
-end
-
-function getnextelfcalories(file)
-    cal = 0;
-    while true
-        line = readline(file); # returns empty at end of file
-        if isempty(line)
-            return cal
-        end
-        cal += parse(Int,line);
-    end
+    return topk[K],sum(topk)
 end
