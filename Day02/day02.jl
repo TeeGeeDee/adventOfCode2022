@@ -3,13 +3,6 @@
 
 translator = Dict('A'=>rock,'B'=>paper,'C'=>scissors,'X'=>rock,'Y'=>paper,'Z'=>scissors);
 
-function getbothscores(opponentschar::Char,mychar::Char)::Vector{Int}
-    opponentshape = translator[opponentschar];
-    myshape1 = translator[mychar];
-    myshape2 = Shape(mod1(Integer(opponentshape) + Integer(myshape1)-2,3))
-    return [roundscore(opponentshape,myshape1),roundscore(opponentshape,myshape2)]
-end
-
 function roundscore(opponentshape::Shape,myshape::Shape)::Int
     score = Integer(myshape);
     if myshape==opponentshape
@@ -18,6 +11,13 @@ function roundscore(opponentshape::Shape,myshape::Shape)::Int
         score += 6
     end
     return score
+end
+
+function getbothscores(opponentschar::Char,mychar::Char)::Vector{Int}
+    opponentshape = translator[opponentschar];
+    myshape1 = translator[mychar];
+    myshape2 = Shape(mod1(Integer(opponentshape) + Integer(myshape1)-2,3))
+    return [roundscore(opponentshape,myshape1),roundscore(opponentshape,myshape2)]
 end
 
 function day02(file)
