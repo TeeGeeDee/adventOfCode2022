@@ -1,5 +1,5 @@
 function day04(file)
-    return Tuple(sum(iscontained(lineranges(line)...) for line in eachline(file)))
+    return Tuple(sum(isoverlap(lineranges(line)...) for line in eachline(file)))
 end
 
 function lineranges(line)
@@ -7,7 +7,7 @@ function lineranges(line)
     return (l1:u1,l2:u2)
 end
 
-function iscontained(r1::UnitRange,r2::UnitRange)::Vector{Bool}
+function isoverlap(r1::UnitRange,r2::UnitRange)::Vector{Bool}
     i = intersect(r1,r2);
     return [in(i,[r1,r2]),~isempty(i)];
 end
