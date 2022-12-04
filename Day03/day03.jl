@@ -1,5 +1,5 @@
 chunkvec(v,sz) = [v[i:i+sz-1] for i in 1:sz:length(v)];
-commonality(groupsofitems::Vector{Vector{Char}})::Char = first(foldl(intersect,groupsofitems));
+commonality(groupsofitems::Vector{Vector{Char}})::Char = reduce(intersect,groupsofitems)[1];
 priority(c::Char)::Int = Int(c) - (isuppercase(c) ? Int('A')-27 : Int('a')-1);
 
 function day03(file)
