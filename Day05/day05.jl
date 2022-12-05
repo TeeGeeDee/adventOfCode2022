@@ -4,7 +4,7 @@ function day05(file)
     crates = [[c for c in Iterators.takewhile(!=(' '),display[end-1:-1:1,i])] for i in findall(display[end,:].!=' ')];
     crates2 = deepcopy(crates);
     for line in inputstream
-        n,from,to = parse.(Int,filter(!isempty,split(line,r"[^0-9]+")));
+        n,from,to = parse.(Int,split(line,r"[^0-9]+",keepempty=false));
         staging = [];
         for _ in 1:n
             push!(crates[to],pop!(crates[from]));
