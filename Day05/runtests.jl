@@ -1,7 +1,7 @@
 using Test
 include("day05.jl");
 
-TEST_INPUT = "    [D]    
+const TEST_INPUT = "    [D]    
 [N] [C]    
 [Z] [M] [P]
  1   2   3 

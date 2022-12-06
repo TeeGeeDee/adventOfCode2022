@@ -1,7 +1,7 @@
 using Test
 include("day01.jl")
 
-TEST_INPUT = "1000
+const TEST_INPUT = "1000
 2000
 3000
 

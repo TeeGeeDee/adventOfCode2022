@@ -1,4 +1,4 @@
-K = 3
+const K = 3
 
 function day01(file)
     topk = zeros(Int,K);

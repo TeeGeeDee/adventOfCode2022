@@ -1,7 +1,7 @@
 using Test
 include("day04.jl")
 
-TEST_INPUT = "2-4,6-8
+const TEST_INPUT = "2-4,6-8
 2-3,4-5
 5-7,7-9
 2-8,3-7

@@ -1,7 +1,7 @@
 using Test
 include("day02.jl")
 
-TEST_INPUT = "A Y
+const TEST_INPUT = "A Y
 B X
 C Z"
 

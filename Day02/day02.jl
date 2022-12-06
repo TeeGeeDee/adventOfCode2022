@@ -1,7 +1,7 @@
 
 @enum Shape rock=1 paper=2 scissors=3 # number is score for shape
 
-translator = Dict('A'=>rock,'B'=>paper,'C'=>scissors,'X'=>rock,'Y'=>paper,'Z'=>scissors);
+const translator = Dict('A'=>rock,'B'=>paper,'C'=>scissors,'X'=>rock,'Y'=>paper,'Z'=>scissors);
 
 function roundscore(opponentshape::Shape,myshape::Shape)::Int
     score = Integer(myshape);
