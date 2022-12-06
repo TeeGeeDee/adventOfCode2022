@@ -1,5 +1,5 @@
 compartments(bag) = Iterators.partition(bag,length(bag)÷2);
-commonality(groupsofitems)::Char = reduce(intersect,groupsofitems)[1];
+commonality(groupsofitems)::Char = only(reduce(intersect,groupsofitems));
 priority(c::Char)::Int = Int(c) - (isuppercase(c) ? Int('A')-27 : Int('a')-1);
 
 function day03(file)
