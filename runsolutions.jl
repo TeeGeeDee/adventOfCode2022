@@ -4,6 +4,7 @@ include("Day03/day03.jl");
 include("Day04/day04.jl");
 include("Day05/day05.jl");
 include("Day06/day06.jl");
+include("Day07/day07.jl");
 
 # Compile (what it says to do here: https://docs.julialang.org/en/v1/manual/performance-tips/#Measure-performance-with-[@time](@ref)-and-pay-attention-to-memory-allocation)
 open(day01,"Day01/data.txt");
@@ -12,6 +13,7 @@ open(day03,"Day03/data.txt");
 open(day04,"Day04/data.txt");
 open(day05,"Day05/data.txt");
 open(day06,"Day06/data.txt");
+open(day07,"Day07/data.txt");
 
 
 println("Day 1:");
@@ -44,3 +46,8 @@ println("Day 6:");
 # 0.000388 seconds (294 allocations: 74.672 KiB)
 println("Solutions = $out.");
 # Solutions = (1647, 2447).
+println("Day 7:");
+@time out = open(day07,"Day07/data.txt");
+# 0.000583 seconds (5.50 k allocations: 305.891 KiB)
+println("Solutions = $out.");
+# Solutions = (1581595, 1544176).
