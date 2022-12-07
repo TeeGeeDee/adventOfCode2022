@@ -12,29 +12,29 @@ mutable struct Folder
 end
 
 function day07(file)
-    currentfolder = Folder("/",nothing);
-    directory = [currentfolder];
+    wd = Folder("/",nothing);
+    directory = [wd];
     for line = eachline(file)
         if startswith(line,raw"$ cd")
-            to = line[6:end];
+            to = @view line[6:end];
             if to=="/"
-                currentfolder = directory[1];
+                wd = directory[1];
             elseif to==raw".."
-                currentfolder = currentfolder.parent;
+                wd = wd.parent;
             else
-                currentfolder = only(c for c in currentfolder.children if c.name==to);
+                wd = only(c for c in wd.children if c.name==to);
             end
         elseif line==raw"$ ls"
             # let the loop continue...
         else # must be following an ls
             a,name = split(line," ");
             if a=="dir"
-                newchild = Folder(name,currentfolder);
+                newchild = Folder(name,wd);
                 push!(directory,newchild);
             else
                 newchild = File(name,parse(Int,a));
             end
-            currentfolder.children = vcat(currentfolder.children,newchild);
+            wd.children = vcat(wd.children,newchild);
         end
     end
     calcsize!(directory[1]); # populates sz of each Folder

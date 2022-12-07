@@ -48,6 +48,6 @@ println("Solutions = $out.");
 # Solutions = (1647, 2447).
 println("Day 7:");
 @time out = open(day07,"Day07/data.txt");
-# 0.000583 seconds (5.50 k allocations: 305.891 KiB)
+# 0.000499 seconds (5.12 k allocations: 293.828 KiB)
 println("Solutions = $out.");
 # Solutions = (1581595, 1544176).
