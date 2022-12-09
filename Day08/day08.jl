@@ -1,6 +1,6 @@
 using DataStructures
 
-const Tree = NamedTuple{(:ind, :height), Tuple{Int64, Int64}}
+const Tree = NamedTuple{(:ind, :height), Tuple{Int, Int}}
 
 function day08(file)
 heights = parse.(Int,reduce(vcat,permutedims.(collect.(readlines(file)))));
