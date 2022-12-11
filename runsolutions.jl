@@ -81,6 +81,6 @@ println(part2)
 # #....###..####..###.#..#.#..#.####.#..#.
 println("Day 11:");
 @time out = open(day11,"Day11/data.txt");
-# 0.153980 seconds (4.50 M allocations: 68.831 MiB, 7.00% gc time)
+# 0.124869 seconds (4.50 M allocations: 68.829 MiB, 11.52% gc time)
 println("Solutions = $out.");
 # Solutions = (113220, 30599555965).

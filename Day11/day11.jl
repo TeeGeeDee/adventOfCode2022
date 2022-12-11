@@ -2,7 +2,7 @@ using DataStructures
 
 mutable struct Monkey
     items::Queue{Int}
-    operation
+    operation::Function
     testdivisibleby::Int
     monkeyto::Tuple{Int,Int}
     ninspections::Int
@@ -39,9 +39,8 @@ function day11(file)
     monkeys2 = deepcopy(monkeys);
     playrounds!(monkeys,true,base);
     playrounds!(monkeys2,false,base);
-    inspections = partialsort([m.ninspections for m in monkeys],1:2,rev=true);
-    inspections2 = partialsort([m.ninspections for m in monkeys2],1:2,rev=true);
-    return prod(inspections),prod(inspections2)
+    return prod(partialsort([m.ninspections for m in monkeys],1:2,rev=true)),
+           prod(partialsort([m.ninspections for m in monkeys2],1:2,rev=true))
 end
 
 function playrounds!(monkeys::Vector{Monkey},ispart1::Bool,denom::Int)
