@@ -66,7 +66,14 @@ println("Day 9:");
 println("Solutions = $out.");
 # Solutions = (6470, 2658).
 println("Day 10:");
-@time out = open(day10,"Day10/data.txt");
-# 
-println("Solutions = $out.");
-# 
+@time part1,part2 = open(day10,"Day10/data.txt");
+#   0.011604 seconds (3.02 k allocations: 188.528 KiB, 98.37% compilation time)
+println("Solution to part 1 = $part1, solution to part 2:");
+println(part2)
+# Solution to part 1 = 13440, solution to part 2:
+# ###..###..####..##..###...##..####..##..
+# #..#.#..#....#.#..#.#..#.#..#....#.#..#.
+# #..#.###....#..#....#..#.#..#...#..#..#.
+# ###..#..#..#...#.##.###..####..#...####.
+# #....#..#.#....#..#.#.#..#..#.#....#..#.
+# #....###..####..###.#..#.#..#.####.#..#.
