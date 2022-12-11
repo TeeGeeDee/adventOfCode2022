@@ -1,7 +1,7 @@
 using DataStructures
 
 mutable struct Monkey
-    items::Deque{Int}
+    items::Queue{Int}
     operation
     testdivisibleby::Int
     monkeyto::Tuple{Int,Int}
@@ -21,9 +21,9 @@ mutable struct Monkey
             v = parse(Int,arg);
             func = x->f(x,v);
         end
-        itemsq = Deque{Int}();
+        itemsq = Queue{Int}();
         for i in items
-            push!(itemsq,i);
+            enqueue!(itemsq,i);
         end
         new(itemsq,func,divby,monkeyto,0);
     end
@@ -35,30 +35,30 @@ function day11(file)
     while !eof(file)
         push!(monkeys,Monkey(collect(latestmonkey)));
     end
-    lcm = prod(m.testdivisibleby for m in monkeys)
-    monkeyspart2 = deepcopy(monkeys);
-    for _ in 1:20, i = 1:length(monkeys)
-        taketurn!(monkeys[i],monkeys,true,lcm);
-    end
-    for _ in 1:10000, i = 1:length(monkeyspart2)
-        taketurn!(monkeyspart2[i],monkeyspart2,false,lcm);
-    end
-    inspections = sort([m.ninspections for m in monkeys],rev=true);
-    inspections2 = sort([m.ninspections for m in monkeyspart2],rev=true);
-    return prod(inspections[1:2]),prod(inspections2[1:2])
+    base = lcm([m.testdivisibleby for m in monkeys]...);
+    monkeys2 = deepcopy(monkeys);
+    playrounds!(monkeys,true,base);
+    playrounds!(monkeys2,false,base);
+    inspections = partialsort([m.ninspections for m in monkeys],1:2,rev=true);
+    inspections2 = partialsort([m.ninspections for m in monkeys2],1:2,rev=true);
+    return prod(inspections),prod(inspections2)
 end
 
-function taketurn!(m::Monkey,monkeys::Vector{Monkey},ispart1::Bool,lcm::Int)
-    while !isempty(m.items)
-        x = popfirst!(m.items);
-        x = m.operation(x);
-        if ispart1
-            x ÷= 3;
-        else
-            x = mod(x,lcm);
+function playrounds!(monkeys::Vector{Monkey},ispart1::Bool,denom::Int)
+    for _ in 1:(ispart1 ? 20 : 10_000)
+        for m in monkeys
+            while !isempty(m.items)
+                x = dequeue!(m.items);
+                x = m.operation(x);
+                if ispart1
+                    x ÷= 3;
+                else
+                    x = mod(x,denom);
+                end
+                indto =  x % m.testdivisibleby == 0 ? 1 : 2;
+                enqueue!(monkeys[m.monkeyto[indto]].items,x);
+                m.ninspections += 1;
+            end
         end
-        indto =  x % m.testdivisibleby ==0 ? 1 : 2;
-        push!(monkeys[m.monkeyto[indto]].items,x);
-        m.ninspections += 1;
     end
 end
