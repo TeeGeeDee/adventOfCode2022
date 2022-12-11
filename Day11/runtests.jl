@@ -29,4 +29,4 @@ Test: divisible by 17
   If true: throw to monkey 0
   If false: throw to monkey 1"
 
-@test day11(IOBuffer(TEST_INPUT)) == 10605
+@test day11(IOBuffer(TEST_INPUT)) == (10605,2713310158)

@@ -14,7 +14,6 @@ mutable struct Monkey
         if     op=="+" f = +;
         elseif op=="-" f = -;
         elseif op=="*" f = *;
-        elseif op=="÷" f = ÷;
         end
         if arg=="old";
             func = x->f(x,x);
@@ -35,17 +34,28 @@ function day11(file)
     while !eof(file)
         push!(monkeys,Monkey([line for line in latestmonkey]));
     end
+    commondemom = prod(m.testdivisibleby for m in monkeys)
+    monkeyspart2 = deepcopy(monkeys);
     for _ in 1:20, i = 1:length(monkeys)
-        taketurn!(monkeys[i],monkeys);
+        taketurn!(monkeys[i],monkeys,true,commondemom);
+    end
+    for _ in 1:10000, i = 1:length(monkeyspart2)
+        taketurn!(monkeyspart2[i],monkeyspart2,false,commondemom);
     end
     inspections = sort([m.ninspections for m in monkeys],rev=true);
-    return inspections[1]*inspections[2]
+    inspections2 = sort([m.ninspections for m in monkeyspart2],rev=true);
+    return prod(inspections[1:2]),prod(inspections2[1:2])
 end
 
-function taketurn!(m::Monkey,monkeys)
+function taketurn!(m::Monkey,monkeys,ispart1,commondemom)
     while !isempty(m.items)
         x = popfirst!(m.items);
-        x = m.operation(x)÷3;
+        x = m.operation(x);
+        if ispart1
+            x ÷= 3;
+        else
+            x = mod(x,commondemom);
+        end
         indto =  x % m.testdivisibleby ==0 ? 1 : 2;
         push!(monkeys[m.monkeyto[indto]+1].items,x);
         m.ninspections += 1;
