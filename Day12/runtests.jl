@@ -7,4 +7,4 @@ accszExk
 acctuvwj
 abdefghi";
 
-@test day12(IOBuffer(TEST_INPUT)) == 31
+@test day12(IOBuffer(TEST_INPUT)) == (31,29)
