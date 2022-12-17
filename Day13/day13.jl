@@ -22,25 +22,16 @@ function iscorrectorder(x1,x2)
     s1,s2 = collect(reverse(x1)),collect(reverse(x2));
     while !isempty(s1) && !isempty(s2)
         left,right = popelement!(s1),popelement!(s2);
-        isLeftInt = typeof(left)==Int;
-        isRightInt = typeof(right)==Int;
-        if isLeftInt && isRightInt && left!=right
+        if typeof(left)==Int && typeof(right)==Int && left!=right
             return left<right
         elseif xor(left==']',right==']')
             return left==']'
-        elseif isLeftInt && right=='['
-            push!(s1,']');
-            for c in collect(reverse(string(left)))
-                push!(s1,c);
-            end
-        elseif left=='[' && isRightInt
-            push!(s2,']');
-            for c in collect(reverse(string(right)))
-                push!(s2,c);
-            end
+        elseif typeof(left)==Int && right=='['
+            putinlist!(s1,left);
+        elseif left=='[' && typeof(right)==Int
+            putinlist!(s2,right);
         end
     end
-    return true
 end
 
 function popelement!(s)
@@ -50,4 +41,11 @@ function popelement!(s)
     end
     if isnumeric(x[1]) x = parse(Int,x) end
     return x
+end
+
+function putinlist!(s,i)
+    push!(s,']');
+    for c in collect(reverse(string(i)))
+        push!(s,c);
+    end
 end
