@@ -1,12 +1,19 @@
+const DIVIDER_PACKETS = ["[[2]]", "[[6]]"]
+
 function day13(file)
     part1,i = 0,0;
+    allpackets = copy(DIVIDER_PACKETS);
     while !eof(file)
         i += 1;
-        if iscorrectorder(getpair(file)...)
+        left,right = getpair(file);
+        if iscorrectorder(left,right)
             part1 += i;
         end
+        push!(allpackets,left);
+        push!(allpackets,right);
     end
-    return part1
+    part2 = prod(indexin(DIVIDER_PACKETS,sort(allpackets,lt=iscorrectorder)));
+    return part1,part2
 end
 
 getpair(file) = collect(Iterators.takewhile(!isempty,eachline(file)));
@@ -44,17 +51,3 @@ function popelement!(s)
     if isnumeric(x[1]) x = parse(Int,x) end
     return x
 end
-
-function runtoendoflist!(s)
-    depth = 0;
-    while !(depth==0 && peek(s)==']')
-        c = popfirst!(s);
-        if     c==']' depth -= 1;
-        elseif c=='[' depth += 1;
-        end
-    end
-end
-
-putinlist!(s,c) = Iterators.reset!(s, vcat(c,']',collect(s)));
-
-
